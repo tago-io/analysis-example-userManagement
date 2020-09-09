@@ -11,6 +11,7 @@
     "linter": "eslint .",
     "build": "analysis-builder src/start.ts ./build/handler.tago.js",
     "start": "ts-node src/start.ts",
+    "nodemon": "nodemon src/start.ts",
     "inspect": "node --inspect ./node_modules/.bin/ts-node --files ./src/start.ts"
   },
   "jest": {

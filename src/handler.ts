@@ -1,10 +1,15 @@
 import { Utils, Services, Account, Device, Types } from "@tago-io/sdk";
 import { ServiceParams, TagoContext, ServicesAnalysis, TagoData } from "./types";
 
-const servicesCollection = Promise.all([import("./services/customer"), import("./services/device")]) as Promise<ServicesAnalysis[]>;
+const servicesCollection = Promise.all([
+  import("./services/user"),
+  import("./services/device"),
+  import("./services/company"),
+  import("./services/location"),
+]) as Promise<ServicesAnalysis[]>;
 
 async function handler(context: TagoContext, scope: TagoData[]): Promise<void> {
-  context.log(JSON.stringify(scope));
+  context.log(scope);
   context.log("Running Analysis");
 
   const environment = Utils.envToJson(context.environment);
@@ -12,13 +17,13 @@ async function handler(context: TagoContext, scope: TagoData[]): Promise<void> {
     return;
   }
 
-  if (!environment.config_token) {
-    throw "Missing config_token environment var";
+  if (!environment.settings_token) {
+    throw "Missing settings_token environment var";
   } else if (!environment.account_token) {
     throw "Missing account_token environment var";
   }
 
-  const config_dev = new Device({ token: environment.config_token });
+  const config_dev = new Device({ token: environment.settings_token });
   const account = new Account({ token: environment.account_token });
   const notification = new Services({ token: context.token }).Notification;
 
