@@ -37,12 +37,14 @@ export default async ({ config_dev, context, scope, account, environment }: Serv
   const serie = newCompany.device_id;
 
   // Send company info to # System Settings # device
+  // the serie field is important to know they are from the same company
   await config_dev.sendData([
     {
       variable: "company_id",
       value: serie,
       serie,
       metadata: {
+        // this metadata is usefull to show the name in select menus in forms
         label: companyName.value,
       },
     },

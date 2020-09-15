@@ -9,6 +9,7 @@ import editUser from "./edit";
  * Actions like delete and edit does send the internal environment variable _widget_exec when the user take this kind of action.
  */
 function checkType(scope: TagoData[], environment: EnvironmentItemObject) {
+  // We need to use a required variable to know when is a add call
   if (scope.find((x) => x.variable === "add_user_name")) return "add";
   else if (scope.find((x) => x.variable === "user_name") && environment._widget_exec === "delete") return "remove";
   else if (scope.find((x) => x.variable === "user_name") && environment._widget_exec === "edit") return "edit";
